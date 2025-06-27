@@ -14,15 +14,21 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('admin.products.list')}}" class="nav-link">
+                <a href="{{route('products.index')}}" class="nav-link">
                   <i class="nav-icon bi "></i>
                   <p>Products</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('admin.products.categories')}}" class="nav-link">
+                <a href="{{route('categories.index')}}" class="nav-link">
                     <i class="nav-icon fas fa-sign-out-alt"></i>
                   <p>categories</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('subcategories.index')}}" class="nav-link">
+                    <i class="nav-icon fas fa-sign-out-alt"></i>
+                  <p>Sub categories</p>
                 </a>
               </li>
             
