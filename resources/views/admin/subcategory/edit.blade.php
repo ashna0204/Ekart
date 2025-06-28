@@ -8,22 +8,34 @@
                   <div class="card-header"><div class="card-title">Category Form</div></div>
                   <!--end::Header-->
                   <!--begin::Form-->
-                  <form action="{{ route('category.update',$category->id) }}" method="POST" enctype="multipart/form-data">
+                  <form action="{{ route('subcategory.update',$subcategory->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    @method('PUT')
+                   @method("PUT")
                     <!--begin::Body-->
                     <div class="card-body">
-                      <div class="mb-3">
+                        <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Category Name</label>
+                        <select name="category_id" class="form-control">
+                            <option value="">Select Category</option>
+                            @foreach($categories as $cat)
+                            <option value="{{$cat->id}}" {{$cat->id == $subcategory->category_id ? 'selected': ''}}>{{old('name',$cat->name)}}</option>
+                          @endforeach
+
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label for="subcategoryname" class="form-label">SubCategory Name</label>
                         <input
                           type="text"
                           class="form-control"
-                          id="name" name="name"
-                          value="{{old('name', $category->name)}}"
+                          id="subcategory_name" name="name"
+                        value="{{ old('name', $subcategory->name) }}"
+
                         />
-                        
+                       
                       </div>
-                      
+                     
+                     
                     </div>
                     <!--end::Body-->
                     <!--begin::Footer-->

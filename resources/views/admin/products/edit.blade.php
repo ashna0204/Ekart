@@ -10,6 +10,7 @@
                   <!--begin::Form-->
                   <form action="{{route('products.update',$product->id)}}" enctype="multipart/form-data" method="POST" >
                     @csrf
+                    @method("PUT")
                    
                     <!--begin::Body-->
                     <div class="card-body">

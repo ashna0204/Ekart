@@ -32,4 +32,25 @@ class SubcategoryController extends Controller
 
        return redirect()->route('subcategories.index')->with('success',"Subcategory created successfully.");
     }
+    public function edit($id){
+        $subcategory= Subcategory::findorfail($id);
+        $categories = Category::all();
+        return view('admin.subcategory.edit',compact('categories','subcategory'));
+    }
+    public function update(Request $request, Subcategory $subcategory){
+
+        $validated =$request->validate([
+            'category_id'=>'required|exists:categories,id',
+            'name'=>'required'
+        ]);
+
+        $subcategory->update($validated);
+
+       return redirect()->route('subcategories.index')->with('success',"Subcategory updated successfully.");
+    }
+    public function destroy($id){
+        $subcategory=Subcategory::findorfail($id);
+        $subcategory->delete();
+        return redirect()->route('subcategories.index')->with('success','Subcategory deleted successfully');
+    }
 }

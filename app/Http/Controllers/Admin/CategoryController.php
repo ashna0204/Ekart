@@ -36,11 +36,7 @@ class CategoryController extends Controller
         $validated= $request->validate([
         'name'=>'required'
        ]);
-
-       Category::create([
-           'name' => $request->name,
-       ]);
-       
+         
        $category->update($validated);
        return redirect()->route('categories.index')->with('success',"Category Updated successfully.");
     }

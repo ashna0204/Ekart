@@ -5,7 +5,7 @@
 <div class="row">
               <div class="col-md-6">
                 <div class="card mb-4">
-                  <div class="card-header"><h3 class="card-title">Bordered Table</h3></div>
+                  <div class="card-header"><h3 class="card-title">SubCategories </h3></div>
                   <!-- /.card-header -->
                   <div class="card-body">
                     <table class="table table-bordered">
@@ -14,7 +14,7 @@
                           <th style="width: 10px">Sl.No</th>
                           <th>Category </th>
                           <th>Subcategory </th>
-                          <th style="width: 40px">Actions</th>
+                          <th  style="width: 250px; text-align: center;">Actions</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -25,6 +25,13 @@
                         <td>{{$subcategory->category->name}}</td>
                         <td>{{$subcategory->name}}</td>
                         <td>
+                          <a href="{{route('subcategory.edit',$subcategory->id)}}" class="btn btn-secondary">Edit</a>
+                          <form action="{{route('subcategory.delete',$subcategory->id)}}" method="POST" style="display:inline;" >
+                            @csrf
+                            @method("DELETE")
+                          <button class="btn btn-danger">Delete</button>
+                          </form>
+                        </td>
                         </tr>
                         @endforeach
                       </tbody>
