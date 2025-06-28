@@ -29,6 +29,9 @@ Route::middleware('auth:admin')->group(function(){
     Route::get('/categories/list', 'index')->name('categories.index');
     Route::get('/categories/form', 'create')->name('categories.create');
     Route::post('/categories/store', 'store')->name('categories.store');
+    Route::get('/categories/edit/{id}', 'edit')->name('category.edit');
+    Route::post('/categories/store/{category}', 'update')->name('category.update');
+    Route::delete('/categories/delete/{id}', 'destroy')->name('category.delete');
   });
 
   Route::prefix('admin.')->controller(SubcategoryController::class)->group(function (){
