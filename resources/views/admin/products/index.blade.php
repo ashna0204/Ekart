@@ -11,14 +11,15 @@
                     <table class="table table-bordered">
                       <thead>
                         <tr>
-                          <th style="width: 10px">Sl.No</th>
+                          <th >Sl.No</th>
                           <th>Product</th>
-                          <th>Category</th>
-                          <th>Sub Category</th>
+                          <!-- <th>Category</th>
+                          <th>Sub Category</th> -->
                           <th>Price</th>
                           <th>Image</th>
                           <th>Status</th>
                           <th>Favourite</th>
+                          <th style="width: 250px; text-align: center;">Actions</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -26,8 +27,8 @@
                         <tr class="align-middle">
                           <td>{{$loop->iteration}}</td>
                          <td>{{$product->name}}</td>
-                         <td>{{$product->subcategory->category->name}}</td>
-                         <td>{{$product->subcategory->name}}</td>
+                         <!-- <td>{{$product->subcategory->category->name}}</td>
+                         <td>{{$product->subcategory->name}}</td> -->
                          <td>{{$product->price}}</td>
                          <td>
                           @if($product->image)
@@ -44,6 +45,16 @@
                             <span class="badge {{$product->is_favourite? 'bg-warning' : 'bg-light text-dark'}}">
                               {{$product->is_favourite_name}}
                             </span>
+                          </td>
+                          <td>
+
+                          <a href="{{route('products.edit',$product->id)}}" class="btn btn-secondary">Edit</a>
+                          <a href="{{route('products.show',$product->id)}}" class="btn btn-primary">View</a>
+                          <form action="{{route('products.delete',$product->id)}}" method="POST" style="display:inline;" >
+                            @csrf
+                            @method("DELETE")
+                          <button class="btn btn-danger">Delete</button>
+                          </form>
                           </td>
                         </tr>
                         @endforeach

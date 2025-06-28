@@ -19,6 +19,10 @@ Route::middleware('auth:admin')->group(function(){
     Route::get('/products/list', 'index')->name('products.index');
     Route::get('/products/form', 'create')->name('products.create');
     Route::post('/products/store', 'store')->name('products.store');
+    Route::get('/products/edit/{id}', 'edit')->name('products.edit');
+    Route::post('/products/store/{product}', 'update')->name('products.update');
+    Route::get('/products/show/{product}', 'show')->name('products.show');
+    Route::delete('/products/delete/{id}', 'destroy')->name('products.delete');
   });
 
   Route::prefix('admin.')->controller(CategoryController::class)->group(function (){
