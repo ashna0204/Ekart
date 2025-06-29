@@ -12,19 +12,25 @@ class LoginController extends Controller
     }
 
     public function dologin(Request $request){
-        $input = $request->only(['username','password']);
+        $credentials = $request->only(['username','password']);
         $remember = $request->has('remember');
 
-        if(auth()->guard('admin')->attempt($input, $remember)){
-            return redirect()->route('admin.dashboard');
+       if(Auth::attempt($credentials, $remember)){
+        $user = Auth::user();
+
+        if(!$user->hasRole('admin')){
+            Auth::logout();
+            return back()->withError(['lgoin'=>'You are not authorized to access admin panel']);
+
         }
-        else{
-            return back()->withErrors(['login' => 'Invalid credentials']);
-        }
+        return redirect()->route('admin.dashboard');
+       }
+       return back()->withErrors(['login' => 'Invalid credentials']);
+
     }
 
     public function logout(Request $request){
-        auth()->guard('admin')->logout();
+        Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 

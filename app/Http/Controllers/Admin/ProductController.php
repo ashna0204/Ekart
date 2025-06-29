@@ -25,7 +25,7 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:1',
             'subcategory_id'=> 'required|exists:subcategories,id',
-            'image' => 'nullable|image|mimes:png,jpg,jpeg|max:2048'
+            'image' => 'nullable|image|mimes:png,jpg,jpeg,webp|max:2048'
         ]);
         
         $validated['status'] = $request->has('status') ? 1 : 0;
@@ -52,7 +52,7 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:1',
             'subcategory_id'=> 'required|exists:subcategories,id',
-            'image' => 'nullable|image|mimes:png,jpg,jpeg|max:2048'
+            'image' => 'nullable|image|mimes:png,jpg,jpeg,webp|max:2048'
         ]);
 
          $validated['status'] = $request->has('status') ? 1 : 0;
