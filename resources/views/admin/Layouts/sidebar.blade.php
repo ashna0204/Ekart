@@ -31,6 +31,14 @@
                   <p>Sub categories</p>
                 </a>
               </li>
+               <li class="nav-item">
+                <form action="{{route('admin.logout')}}" class="nav-link" method="POST">
+                  @csrf
+                  <i class="nav-icon fas fa-sign-out-alt"></i>
+                  <button type="submit" style="background: none; border: none; color: inherit; padding: 0; font: inherit; cursor: pointer;">
+                  <p>Logout</p></button>
+                </form>
+              </li>
             
             </ul>
             <!--end::Sidebar Menu-->

@@ -7,12 +7,13 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubcategoryController;
 Route::get('/login',[LoginController::class,'login'])->name('admin.login');
-Route::get('/dologin',[LoginController::class,'dologin'])->name('admin.dologin');
+Route::post('/dologin',[LoginController::class,'dologin'])->name('admin.dologin');
+Route::post('/logout',[LoginController::class,'logout'])->name('admin.logout');
 
 Route::middleware('auth:admin')->group(function(){
 
   Route::prefix('admin')->controller(DashboardController::class)->group(function (){
-    Route::get('/dashboard', 'dashboard')->name('dashboard');
+    Route::get('/dashboard', 'dashboard')->name('admin.dashboard');
   });
 
   Route::prefix('admin')->controller(ProductController::class)->group(function (){
