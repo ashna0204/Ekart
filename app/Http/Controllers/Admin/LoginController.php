@@ -20,7 +20,7 @@ class LoginController extends Controller
 
         if(!$user->hasRole('admin')){
             Auth::logout();
-            return back()->withError(['lgoin'=>'You are not authorized to access admin panel']);
+            return back()->withErrors(['login'=>'You are not authorized to access admin panel']);
 
         }
         return redirect()->route('admin.dashboard');

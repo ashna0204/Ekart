@@ -14,12 +14,18 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'role'=>\Spatie\Permission\Middleware\RoleMiddleware::class,
             'Permission'=>\Spatie\Permission\Middleware\PermissionMiddleware::class,
-            'role_or_permission'=>\Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
+           'role_or_permission'=>\Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
+            // 'admin' => \App\Http\Middleware\AdminRoleMiddleware::class,
+    
         ]);
-        
-         $middleware->alias([
-        'admin' => \App\Http\Middleware\AdminRoleMiddleware::class,
-         ]);
+          $middleware->group('admin', [
+            \App\Http\Middleware\PreventBackHistory::class,
+            \App\Http\Middleware\AdminRoleMiddleware::class,
+        ]);
+
+          $middleware->group('auth', [
+            \App\Http\Middleware\PreventBackHistory::class,
+        ]);
 
     })
     ->withExceptions(function (Exceptions $exceptions): void {
