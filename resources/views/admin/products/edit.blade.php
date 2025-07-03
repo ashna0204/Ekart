@@ -25,7 +25,7 @@
 
                         <div class=" mb-3">
                          <label for="subcategory" class="form-label">SubCategory </label>
-                        <select class="form-control" name="subcategory_id">
+                        <select class="form-control" name="subcategory_id" id="subcategory_id">
                           
                           <option value="">Select Category</option>
                           @foreach($subcategories as $category)
@@ -33,6 +33,15 @@
                           @endforeach
                         </select>
                         </div>
+                       
+
+                      <div class=" mb-3">
+                      <label for="childcategory" class="form-label">  Child Category </label>
+                        <select class="form-control" name="childcategory_id" id="childcategory">
+                          <option value="" >Select Child category</option>
+                        </select>
+                         <input type="hidden" id="selected_childcategory_id" value="{{ $product->childcategory_id }}">
+                      </div>
 
                        
                       </div>
@@ -40,9 +49,21 @@
                         <label for="price" class="form-label">Price</label>
                         <input type="number" class="form-control" id="price" name="price" value="{{old('price',$product->price)}}"/>
                       </div>
+                      
+
                       <div class=" mb-3">
+                        <label for="brand" class="form-label">Brand </label>
+                        <select class="form-control" name="brand_id">
+                          
+                          <option value="">Select Brand</option>
+                          @foreach($brands as $brand)
+                          <option value="{{$brand->id}}" {{old('brand_id',$product->brand_id)==$brand->id ? 'selected': '' }}>{{$brand->name}}</option>
+                          @endforeach
+                        </select>
+                      </div>
                      
-                         <label for="image" class="form-label">Image</label>
+                      <div class=" mb-3">
+                        <label for="image" class="form-label">Image</label>
                         <input type="file" class="form-control" id="image" name="image" value="{{old('image',$product->image)}}"/>
                         <!-- <label class="input-group-text" for="inputGroupFile02">Upload</label> -->
                       </div>
@@ -69,5 +90,9 @@
                   <!--end::Form-->
                 </div>
                 <!--end::Quick Example-->
-                
+             
+ <!-- jQuery for AJAX -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{{asset('js/childcategory.js')}}"></script>
+
 @endsection

@@ -4,19 +4,24 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Subcategory; 
+use App\Models\Childcategory;
+use App\Models\Brand;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     public function index(){
-        $products = Product::with('subcategory.category')->get();
+        $products = Product::with('subcategory.category','childcategory.subcategory')->get();
        
         return view('admin.products.index',compact('products'));
     }
      public function create(){
         $subcategories = Subcategory::with('category')->get();
-        return view('admin.products.create', compact('subcategories'));
+        $childcategories=Childcategory::with('subcategory')->get();
+        $brands= Brand::all();
+        return view('admin.products.create', compact('subcategories','brands','childcategories'));
+       
     }
 
     public function store(Request $request){
@@ -25,6 +30,8 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:1',
             'subcategory_id'=> 'required|exists:subcategories,id',
+            'brand_id' => 'nullable|exists:brands,id',
+            'childcategory_id' => 'nullable|exists:childcategories,id',
             'image' => 'nullable|image|mimes:png,jpg,jpeg,webp|max:2048'
         ]);
         
@@ -43,14 +50,18 @@ class ProductController extends Controller
 
     public function edit($id){
         $product = Product::findorfail($id);
-       $subcategories = Subcategory::with('category')->get();
-        return view('admin.products.edit',compact('product','subcategories'));
+        $subcategories = Subcategory::with('category')->get();
+        $childcategories=Childcategory::with('subcategory')->get();
+        $brands= Brand::all();
+        return view('admin.products.edit',compact('product','subcategories','brands','childcategories'));
     }
 
     public function update(Request $request, Product $product){
        $validated =  $request->validate([
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:1',
+            'brand_id' => 'nullable|exists:brands,id',
+            'childcategory_id' => 'nullable|exists:childcategories,id',
             'subcategory_id'=> 'required|exists:subcategories,id',
             'image' => 'nullable|image|mimes:png,jpg,jpeg,webp|max:2048'
         ]);
@@ -77,6 +88,11 @@ class ProductController extends Controller
         $product=Product::findorfail($id);
         $product->delete();
         return redirect()->route('products.index')->with('success','product deleted successfully');
+    }
+
+    public function getBySubcategory($subcategory_id){
+        $childcategories= Childcategory::where('subcategory_id',$subcategory_id)->get();
+        return response()->json($childcategories);
     }
     
 }

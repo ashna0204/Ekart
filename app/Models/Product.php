@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $fillable=['name', 'price', 'subcategory_id', 'image', 'status', 'is_favourite'];
+    protected $fillable=['name', 'price', 'subcategory_id', 'image', 'status', 'is_favourite','brand_id','childcategory_id'];
     
     public function subcategory()
     {
@@ -39,7 +39,7 @@ class Product extends Model
         return $this->belongsToMany(Size::class, 'productsize');
 
     }
-    public function childcategories()
+    public function childcategory()
     {
         return $this->belongsTo(Childcategory::class);
     }

@@ -28,7 +28,7 @@
 
 <body>
     <!-- Topbar Start -->
-    <div class="container-fluid">
+    <!-- <div class="container-fluid">
        
         <div class="row align-items-center bg-light py-2 px-xl-3 d-none d-lg-flex">
             <div class="col-lg-2">
@@ -76,12 +76,15 @@
                     </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Topbar End -->
-
+     
+<!-- Top Small Navbar -->
+@include('Layout.header')
+</header>
 
     <!-- Navbar Start -->
-    <div class="container-fluid bg-white mb-30">
+    <!-- <div class="container-fluid bg-white mb-30">
         <div class="row px-xl-5">
             <div class="col-lg-12">
                 <div class="d-flex flex-wrap justify-content-center">
@@ -174,7 +177,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Navbar End -->
 
 
