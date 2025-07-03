@@ -14,12 +14,18 @@ class AdminRoleMiddleware
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
         public function handle($request, Closure $next)
-    {
-        if (!auth()->check() || !auth()->user()->hasRole('admin')) {
-            abort(403, 'Unauthorized');
+        {
+            if (!auth()->check()) {
+                return redirect()->route('admin.login')->withErrors(['login' => 'Please log in to access the admin panel.']);
+            }
+
+            if (!auth()->user()->hasRole('admin')) {
+                auth()->logout();
+                return redirect()->route('admin.login')->withErrors(['login' => 'You are not authorized to access admin panel.']);
+            }
+
+            return $next($request);
         }
 
-        return $next($request);
-    }
 
-}
+  }

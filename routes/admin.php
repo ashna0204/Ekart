@@ -7,9 +7,13 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubcategoryController;
 
+use App\Http\Middleware\PreventBackHistory;
+
+Route::middleware([PreventBackHistory::class])->group(function(){
 Route::get('/login',[LoginController::class,'login'])->name('admin.login');
 Route::post('/dologin',[LoginController::class,'dologin'])->name('admin.dologin');
 Route::post('/logout',[LoginController::class,'logout'])->name('admin.logout');
+});
 
 Route::middleware(['auth','admin'])->group(function(){
 
@@ -25,6 +29,7 @@ Route::middleware(['auth','admin'])->group(function(){
     Route::put('/products/store/{product}', 'update')->name('products.update');
     Route::get('/products/show/{product}', 'show')->name('products.show');
     Route::delete('/products/delete/{id}', 'destroy')->name('products.delete');
+     Route::get('/get-childcategory/{subcategory_id}','getBySubcategory');
   });
 
   Route::controller(CategoryController::class)->group(function (){
