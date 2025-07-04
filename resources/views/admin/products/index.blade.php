@@ -13,6 +13,7 @@
                         <tr>
                           <th >Sl.No</th>
                           <th>Product</th>
+                          <th>Subcategory</th>
                           <!-- <th>Category</th>
                           <th>Sub Category</th> -->
                           <th>Price</th>
@@ -27,6 +28,7 @@
                         <tr class="align-middle">
                           <td>{{$loop->iteration}}</td>
                          <td>{{$product->name}}</td>
+                         <td>{{$product->subcategory->name}}</td>
                          <!-- <td>{{$product->subcategory->category->name}}</td>
                          <td>{{$product->subcategory->name}}</td> -->
                          <td>{{$product->price}}</td>

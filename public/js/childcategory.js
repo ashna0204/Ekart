@@ -4,7 +4,7 @@ $(document).ready(function () {
             
             if (subcategoryId) {
                 $.ajax({
-                    url: "/get-childcategory/" + subcategoryId,
+                    url: "/admin/get-childcategory/" + subcategoryId,
                     type: "GET",
                     success: function (response) {
                         $("#childcategory")

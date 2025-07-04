@@ -29,8 +29,9 @@ Route::middleware(['auth','admin'])->group(function(){
     Route::put('/products/store/{product}', 'update')->name('products.update');
     Route::get('/products/show/{product}', 'show')->name('products.show');
     Route::delete('/products/delete/{id}', 'destroy')->name('products.delete');
-     Route::get('/get-childcategory/{subcategory_id}','getBySubcategory');
+   
   });
+ Route::get('/get-childcategory/{subcategory_id}',[ProductController::class,'getBySubcategory']);
 
   Route::controller(CategoryController::class)->group(function (){
     Route::get('/categories/list', 'index')->name('categories.index');
