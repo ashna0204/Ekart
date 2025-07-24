@@ -24,6 +24,11 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    <!-- CSS -->
+<link href="{{ asset('css/style.css') }}" rel="stylesheet">
+<link href="{{ asset('lib/animate/animate.min.css') }}" rel="stylesheet">
+<link href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+
 </head>
 
 <body>
@@ -44,6 +49,10 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <!-- JS -->
+<script src="{{ asset('lib/easing/easing.min.js') }}"></script>
+<script src="{{ asset('lib/owlcarousel/owl.carousel.min.js') }}"></script>
+<script src="{{ asset('js/main.js') }}"></script>
 </body>
 
 </html>

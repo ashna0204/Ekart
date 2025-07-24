@@ -15,42 +15,104 @@
 
 <!-- Main Navbar -->
 <header class="bg-light">
-    <div class="container p-2 m-4 d-flex justify-content-between align-items-center">
-        <div class="dropdown">
-            <a href="{{route('product.index')}}" class="nav-link text-dark mx-2" style="text-decoration: none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'" onmouseenter="this.nextElementSibling.style.display='block'" onmouseleave="this.nextElementSibling.style.display='none'">Fashion</a>
-            <div class="dropdown-menu" style="display: none; position: absolute;" onmouseenter="this.style.display='block'" onmouseleave="this.style.display='none'">
-            <div class="dropdown">
-                <a href="#" class="dropdown-item" onmouseenter="this.nextElementSibling.style.display='block'" onmouseleave="this.nextElementSibling.style.display='none'">Men's Wear</a>
-                <div class="dropdown-menu" style="display: none; position: absolute; left: 100%; top: 0;" onmouseenter="this.style.display='block'" onmouseleave="this.style.display='none'">
-                <a href="#" class="dropdown-item">Formal Wear</a>
-                <a href="#" class="dropdown-item">Active Wear</a>
-                <a href="#" class="dropdown-item">Casual Wear</a>
-                <a href="#" class="dropdown-item">Footwear</a>
+<div class="container p-2 m-4 d-flex justify-content-between align-items-center">
+     <!-- FASHION -->
+     <div class="dropdown position-relative mr-3">
+            <a href="{{ route('products.by.category', $fashionCategory->slug) }}"
+            class="nav-link text-dark "
+             style="text-decoration: none;"
+            onmouseover="this.style.textDecoration='underline'"
+            onmouseout="this.style.textDecoration='none'"
+            onmouseenter="this.nextElementSibling.style.display='block'"
+            onmouseleave="this.nextElementSibling.style.display='none'">
+             Fashion
+                        </a>
+
+         <div class="dropdown-menu" style="display: none; position: absolute;" onmouseenter="this.style.display='block'" onmouseleave="this.style.display='none'">
+                    @foreach($fashionCategory->subcategories as $subcategory)
+             <div class="dropdown">
+                    <a href="{{ route('products.by.subcategory', $subcategory->slug) }}"
+                     class="dropdown-item"
+                     onmouseenter="this.nextElementSibling.style.display='block'"
+                     onmouseleave="this.nextElementSibling.style.display='none'">
+                     {{ $subcategory->name }}
+                    </a>
+
+                    @if($subcategory->childcategories->count())
+                 <div class="dropdown-menu" style="display: none; position: absolute; left: 100%;    top: 0;" onmouseenter="this.style.display='block'" onmouseleave="this.style.display='none'">
+                          @foreach($subcategory->childcategories as $child)
+                        <a href="{{ route('products.by.subcategory.childcategory', ['subcategory_slug' => $subcategory->slug, 'childcategory_slug' => $child->slug]) }}"class="dropdown-item">
+                            {{ $child->name }}
+                        </a>
+                            @endforeach
+                            </div>
+                             @endif
                 </div>
+               @endforeach
             </div>
+           </div>
+
+    <!-- Electronics -->
+        <div class="dropdown position-relative mr-3">
+                <a href="{{route('products.by.category', $electronicsCategory->slug)}}" class="nav-link text-dark" style="text-decoration: none;" 
+                onmouseenter="this.nextElementSibling.style.display='block'"
+                onmouseleave="this.nextElementSibling.style.display='none'"
+                >Electronics</a>
+
+            <div class="dropdown-menu" style="display: none ; position: absolute;" onmouseenter="this.style.display='block' " onmouseleave="this.style.display='none'">
+            @foreach($electronicsCategory->subcategories as $subcategory)
             <div class="dropdown">
-                <a href="#" class="dropdown-item" onmouseenter="this.nextElementSibling.style.display='block'" onmouseleave="this.nextElementSibling.style.display='none'">Women's Wear</a>
-                <div class="dropdown-menu" style="display: none; position: absolute; left: 100%; top: 0;" onmouseenter="this.style.display='block'" onmouseleave="this.style.display='none'">
-                <a href="#" class="dropdown-item">Formal Wear</a>
-                <a href="#" class="dropdown-item">Active Wear</a>
-                <a href="#" class="dropdown-item">Casual Wear</a>
-                <a href="#" class="dropdown-item">Footwear</a>
-                </div>
+                <a href="{{route('products.by.subcategory', $subcategory->slug)}}"
+                class="dropdown-item">
+                {{$subcategory->name}}
+                </a>
             </div>
-            <div class="dropdown">
-                <a href="#" class="dropdown-item" onmouseenter="this.nextElementSibling.style.display='block'" onmouseleave="this.nextElementSibling.style.display='none'">Kids' Wear</a>
-                <div class="dropdown-menu" style="display: none; position: absolute; left: 100%; top: 0;" onmouseenter="this.style.display='block'" onmouseleave="this.style.display='none'">
-                    <a href="#" class="dropdown-item">Girls' Clothing</a>
-                    <a href="#" class="dropdown-item">Boys' Clothing</a>
-                    <a href="#" class="dropdown-item">Girls' Footwear</a>
-                    <a href="#" class="dropdown-item">Boys' Footwear</a>
-                </div>
-            </div>
-            </div>
+            @endforeach
+         </div>
         </div>
-        <a href="#" class="nav-link text-dark mx-2" style="text-decoration: none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Electronics</a>
-        <a href="#" class="nav-link text-dark mx-2" style="text-decoration: none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Home & Kitchen</a>
-        <a href="#" class="nav-link text-dark mx-2" style="text-decoration: none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Health & Beauty</a>
+
+    <!-- Home & Kitchen -->
+    <div class="dropdown position-relative mr-3">
+        <a href="{{route('products.by.category', $homeKitchenCategory->slug)}}"
+        class="nav-link text-dark" style="text-decoration: none;"
+        onmouseenter ="this.nextElementSibling.style.display='block'"
+        onmouseleave = "this.nextElementSibling.style.display='none'">
+        Home & Kitchen</a>
+
+        <div class="dropdown-menu" style="display: none; position: absolute;"
+        onmouseenter="this.style.display='block' " onmouseleave="this.style.display='none'">
+        @foreach($homeKitchenCategory->subcategories as $subcategory)
+        <div class="dropdown">
+            <a href="{{route('products.by.subcategory', $subcategory->slug)}}"
+            class="dropdown-item">
+                {{$subcategory->name}}
+            </a>
+        </div>
+        @endforeach
+    </div>
+</div>
+    <!-- Health & Beauty -->
+        <div class="dropdown position-relative mr-3">
+            <a href="{{route('products.by.category', $healthBeautyCategory->slug)}}"
+            class="nav-link text-dark" style="text-decoration: none;"
+            onmouseenter ="this.nextElementSibling.style.display='block'"
+            onmouseleave = "this.nextElementSibling.style.display='none'">
+        Health & Beauty</a>
+
+        <div class="dropdown-menu" style="display: none; position: absolute;"
+            onmouseenter="this.style.display='block' " onmouseleave="this.style.display='none'">
+        @foreach($healthBeautyCategory->subcategories as $subcategory)
+        <div class="dropdown">
+            <a href="{{route('products.by.subcategory', $subcategory->slug)}}"
+            class="dropdown-item">
+                {{$subcategory->name}}
+            </a>
+        </div>
+        @endforeach
+    </div>
+</div>
+
+
         <div class="d-flex align-items-center">
             <form action="" class="mr-3">
                 <div class="input-group">
@@ -82,9 +144,9 @@
             </div>
         </div>
     </div>
-</header>
+ </header>
 
-<script>
+ <script>
     window.addEventListener('scroll', function() {
         const header = document.querySelector('header');
         if (window.scrollY > 0) {
@@ -93,4 +155,4 @@
             header.classList.remove('fixed-top');
         }
     });
-</script>
+  </script>

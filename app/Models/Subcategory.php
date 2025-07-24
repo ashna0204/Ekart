@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Subcategory extends Model
 {
@@ -22,6 +23,12 @@ class Subcategory extends Model
     public function childcategories()
     {
         return $this->hasMany(Childcategory::class);
+    }
+
+    public static function booted(){
+        static::creating(function ($subcategory){
+            $subcategory->slug = Str::slug($subcategory->name);
+        });
     }
     
 }
