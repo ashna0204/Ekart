@@ -6,6 +6,7 @@ use App\Models\Brand;
 use App\Models\Colour;
 use App\Models\Size;
 use App\Models\Childcategory;
+use App\Models\ProductVariant;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
@@ -42,5 +43,9 @@ class Product extends Model
     public function childcategory()
     {
         return $this->belongsTo(Childcategory::class);
+    }
+
+    public function variants(){
+        return $this->hasMany(ProductVariant::class);
     }
 }

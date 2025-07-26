@@ -54,6 +54,40 @@
                         </select>
                   </div>
 
+                  <!-- colours -->
+
+                  <div class="mb-3">
+                    <label class="form-lable">Colours</label>
+                    <div>
+                      @foreach($colours as $colour)
+                      <div class="form-check form-check-inline">
+                        <input type="checkbox" class="form-check-input" name="colours[]"
+                        value="{{$colour->id}}"
+                        id="colour_{{$colour->id}}">
+                        <label for="colour_{{ $colour->id}}" class="form-check-label">{{ $colour->name }}</label>
+                      </div>
+                      @endforeach
+                    </div>
+                  </div>
+
+
+                  <!-- sizes -->
+                   <div class="mb-3">
+                    <label class="form-label">Sizes</label>
+                    <div>
+                      @foreach($sizes as $size)
+                      <div class="form-check form-check-inline">
+                      <input type="checkbox" class="form-check-input" name="sizes[]"
+                      value="{{$size->id}}"
+                      id="size_{{$size->id}}"
+                      >
+                      <label for="size_{{$size->id}}" class="form-check-label">{{$size->name}}</label>
+                      </div>
+                      @endforeach
+                    </div>
+                   </div>
+
+
                   <div class="mb-3">
                       <label for="price" class="form-label">Price</label>
                         <input type="number" class="form-control" id="price" name="price" />

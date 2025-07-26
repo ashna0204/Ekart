@@ -6,6 +6,9 @@ use App\Models\Category;
 use App\Models\Subcategory; 
 use App\Models\Childcategory;
 use App\Models\Brand;
+use App\Models\Colour;
+use App\Models\Size;
+use App\Models\ProductVariant;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -20,7 +23,10 @@ class ProductController extends Controller
         $subcategories = Subcategory::with('category')->get();
         $childcategories=Childcategory::with('subcategory')->get();
         $brands= Brand::all();
-        return view('admin.products.create', compact('subcategories','brands','childcategories'));
+        $colours = Colour::all();
+        $sizes = Size::all();
+
+        return view('admin.products.create', compact('subcategories','brands','childcategories','colours', 'sizes'));
        
     }
 
@@ -32,7 +38,9 @@ class ProductController extends Controller
             'subcategory_id'=> 'required|exists:subcategories,id',
             'brand_id' => 'nullable|exists:brands,id',
             'childcategory_id' => 'nullable|exists:childcategories,id',
-            'image' => 'nullable|image|mimes:png,jpg,jpeg,webp|max:2048'
+            'image' => 'nullable|image|mimes:png,jpg,jpeg,webp|max:2048',
+            'colours' => 'nullable|array',
+            'sizes' => 'nullable|array'
         ]);
         
         $validated['status'] = $request->has('status') ? 1 : 0;
@@ -44,6 +52,19 @@ class ProductController extends Controller
 
 
         $product = Product::create($validated);
+
+        //create product variant
+         if(!empty($request->colours)&& !empty($request->sizes)){
+            foreach($request->colours as $colourId){
+                foreach($request->sizes as $sizeId){
+                    ProductVariant::create([
+                        'product_id' => $product->id,
+                        'colour_id' => $colourId,
+                        'size_id' => $sizeId
+                    ]);
+                }
+            }
+         }
 
         return redirect()->route('products.index')->with('success',"Product added Successfully");
     }
@@ -80,7 +101,7 @@ class ProductController extends Controller
     }
 
     public function show($id){
-        $product = Product::findorfail($id);
+        $product = Product::with('variants.size','variants.colour')->findorfail($id);
         return view('admin.products.view',compact('product'));
     }
 
