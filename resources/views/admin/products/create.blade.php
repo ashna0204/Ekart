@@ -72,7 +72,7 @@
 
 
                   <!-- sizes -->
-                   <div class="mb-3">
+                   <div class="mb-3 sizes-section">
                     <label class="form-label">Sizes</label>
                     <div>
                       @foreach($sizes as $size)
@@ -136,4 +136,20 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{{asset('js/childcategory.js')}}"></script>
 
+<script>
+  $(document).ready(function(){
+    $(".sizes-section").hide();
+    
+    $("#subcategory_id").change(function(){
+      var selectedText = $("#subcategory_id option:selected").text();
+
+      if(selectedText.includes("Womens Clothing") || selectedText.includes("Men's Clothing")|| selectedText.includes("Kids wear")){
+        $(".sizes-section").show();
+      }else{
+        $(".sizes-section").hide();
+      }
+      
+    })
+  })
+</script>
 @endsection
